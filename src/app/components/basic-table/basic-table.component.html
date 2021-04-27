@@ -1,0 +1,49 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="title">
+    <th mat-header-cell *matHeaderCellDef> Title </th>
+    <td mat-cell *matCellDef="let element"> {{element.attributes.title}} ({{getAbbreviation(element.attributes.title)}}) </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="website">
+    <th mat-header-cell *matHeaderCellDef> Website </th>
+    <td mat-cell *matCellDef="let element"> <a [href]="">{{(element.attributes.website)?(element.attributes.website.uri):"-"}}</a>  </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="submission_address">
+    <th mat-header-cell *matHeaderCellDef> Submission Address </th>
+    <td mat-cell *matCellDef="let element">{{getFormatedAddress(element)}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef> Action </th>
+    <td mat-cell *matCellDef="let element">
+      <button (click)="routeToDetail(element)"
+          type="button" class="btn btn-danger  flex-item">
+          View
+          </button>
+    </td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <!-- <ng-container matColumnDef="symbol">
+    <th mat-header-cell *matHeaderCellDef> Symbol </th>
+    <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+  </ng-container> -->
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+
+<mat-paginator  (page)="changePage($event)" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+<!-- Copyright 2020 Google LLC. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->
